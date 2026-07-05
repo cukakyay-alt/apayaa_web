@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary, Sayang! ❤️</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 50%, #ffb3c6 100%);
+            color: #4a4a4a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* HALAMAN 1: CONTAINER UTAMA */
+        .card-container {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            max-width: 450px;
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .heart-icon {
+            font-size: 4rem;
+            color: #ff4d6d;
+            animation: heartbeat 1.4s infinite;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #ff4d6d;
+            margin-bottom: 5px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .counter-box {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 100%);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .counter-box p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .timer {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: 5px solid white;
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .photo-frame img.active {
+            opacity: 1;
+        }
+
+        .love-letter {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px 20px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #555;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid #ffe5ec;
+        }
+
+        /* Tombol Musik Utama */
+        .music-control {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* TOMBOL MASUK HALAMAN BARU */
+        .next-page-btn {
+            background: linear-gradient(135deg, #ff758f 0%, #ff85a1 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(255, 117, 143, 0.4);
+            transition: transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .next-page-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* HALAMAN 2: HALAMAN BUNGA BERGERAK (Mulai dengan disembunyikan) */
+        .flower-page {
+            display: none;
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .flower-page h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 4.5rem;
+            color: #d11a2a;
+            text-shadow: 0 4px 10px rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        .flower-page p {
+            font-size: 1.2rem;
+            color: #ff4d6d;
+            font-weight: 600;
+            background: rgba(255,255,255,0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* Efek Kelopak Bunga Berjatuhan */
+        .petal {
+            position: absolute;
+            background-color: #ffb3c6;
+            border-radius: 150px 0px 150px 150px;
+            opacity: 0.7;
+            z-index: 1;
+            animation: fade 10s infinite linear, fly 10s infinite ease-in-out;
+        }
+
+        /* BUNGA YANG BISA BERGERAK/BERPUTAR DI HALAMAN BARU */
+        .moving-flower {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 2;
+            animation: spinAndMove 6s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        /* KUMPULAN ANIMASI */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            30% { transform: scale(1.1); }
+        }
+        @keyframes fade { 0%, 90% { opacity: 0.7; } 100% { opacity: 0; } }
+        @keyframes fly {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); }
+            100% { top: 110%; transform: translateX(120px) rotate(360deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes spinAndMove {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg) scale(1.2); opacity: 0; }
+        }
+
+        footer { margin-top: 25px; font-size: 0.75rem; color: #aa9999; }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO PLAYER LOKAL -->
+    <audio id="romantic-music" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Wadah untuk animasi kelopak bunga jatuh -->
+    <div id="petal-container"></div>
+
+    <!-- HALAMAN 1: TAMPILAN UTAMA -->
+    <div class="card-container" id="main-page">
+        <div class="heart-icon">❤️</div>
+        <h1>Happy Anniversary!</h1>
+        <p class="subtitle">Melihat senyummu adalah anugerah terindah bagiku.</p>
+
+        <div class="counter-box">
+            <p>Perjalanan Setahun:</p>
+            <div id="live-timer" class="timer">Menghitung momen indah...</div>
+        </div>
+
+        <div class="photo-frame">
+            <img src="foto1.jpg" class="active" alt="Foto Kita 1">
+            <img src="foto2.jpg" alt="Foto Kita 2">
+            <img src="foto3.jpg" alt="Foto Kita 3">
+        </div>
+
+        <div class="love-letter">
+            "Terima kasih ya sudah bertahan dan berjuang bersamaku sampai hari ini. Terima kasih atas segala senyuman, kesabaran, dan pelukan hangat yang selalu menenangkan. Aku bersyukur memilikimu, dan semoga hari-hari kita ke depan selalu dipenuhi kebahagiaan. I love you! 🥰"
+        </div>
+
+        <button class="music-control" onclick="tataMusik()">
+            <span id="music-icon">🎵</span> <span id="music-text">Putar Lagu Cinta</span>
+        </button>
+
+        <!-- TOMBOL UNTUK MASUK KE HALAMAN BARU -->
+        <button class="next-page-btn" onclick="pindahHalaman()">
+            🌸 Klik Ini Ada Sesuatu 🌸
+        </button>
+
+        <footer>Dibuat khusus untukmu dengan segenap rasa cinta ✨</footer>
+    </div>
+
+    <!-- HALAMAN 2: HALAMAN KEJUTAN BUNGA BERGERAK -->
+    <div class="flower-page" id="flower-surprise-page">
+        <h2>Happy Anniversary<br>yang ke-1 Tahun! 🌸</h2>
+        <p>I love you forever and always 🥰</p>
+    </div>
+
+    <script>
+        // Set tanggal jadian kamu di sini
+        const tanggalJadian = new Date("July 5, 2025 00:00:00").getTime();
+
+        // 1. Logika Timer
+        function hitungWaktu() {
+            const sekarang = new Date().getTime();
+            const selisih = sekarang - tanggalJadian;
+            const satuDetik = 1000, satuMenit = 60000, satuJam = 3600000, satuHari = 86400000, satuTahun = 31557600000;
+            let sisaWaktu = selisih;
+
+            const tahun = Math.floor(sisaWaktu / satuTahun); sisaWaktu %= satuTahun;
+            const hari = Math.floor(sisaWaktu / satuHari); sisaWaktu %= satuHari;
+            const jam = Math.floor(sisaWaktu / satuJam); sisaWaktu %= satuJam;
+            const menit = Math.floor(sisaWaktu / satuMenit); sisaWaktu %= satuMenit;
+            const detik = Math.floor(sisaWaktu / satuDetik);
+
+            const timerElement = document.getElementById("live-timer");
+            if(timerElement) {
+                timerElement.innerHTML = tahun + " Tahun &bull; " + hari + " Hari<br>" + jam + " Jam : " + menit + " Menit : " + detik + " Detik";
+            }
+        }
+        setInterval(hitungWaktu, 1000);
+
+        // 2. Logika Slide Foto
+        const slides = document.querySelectorAll('.photo-frame img');
+        let currentSlide = 0;
+        setInterval(() => {
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 3500);
+
+        // 3. Efek Kelopak Bunga Berguguran Permanen
+        for (let i = 0; i < 20; i++) {
+            buatKelopak();
+        }
+
+        function buatKelopak() {
+            const kelopak = document.createElement('div');
+            kelopak.className = 'petal';
+            kelopak.style.left = Math.random() * 100 + 'vw';
+            kelopak.style.animationDelay = Math.random() * 8 + 's';
+            kelopak.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            const ukuran = Math.random() * 12 + 8;
+            kelopak.style.width = ukuran + 'px'; kelopak.style.height = ukuran + 'px';
+            const warna = ['#ffb3c6', '#ffc2d1', '#ffe5ec'];
+            kelopak.style.backgroundColor = warna[Math.floor(Math.random() * warna.length)];
+            document.body.appendChild(kelopak);
+        }
+
+        // 4. LOGIKA PINDAH HALAMAN & MUNCULKAN BUNGA BERGERAK 
+        function pindahHalaman() {
+            // Sembunyikan Halaman 1
+            document.getElementById('main-page').style.display = 'none';
+            // Munculkan Halaman 2
+            const halamanBunga = document.getElementById('flower-surprise-page');
+            halamanBunga.style.display = 'block';
+
+            // Bunyikan musik otomatis jika belum diputar
+            const lagu = document.getElementById("romantic-music");
+            lagu.play().catch(e => console.log("Audio dimainkan"));
+
+            // Mulai buat animasi bunga bergerak naik ke atas dari bawah layar
+            setInterval(buatBungaBergerak, 300);
+        }
+
+        function buatBungaBergerak() {
+            const bungaList = ['🌸', '💐', '🌹', '🌺', '🌷', '🌻'];
+            const bunga = document.createElement('div');
+            bunga.className = 'moving-flower';
+            bunga.innerText = bungaList[Math.floor(Math.random() * bungaList.length)];
+            
+            // Atur posisi acak di bagian bawah layar
+            bunga.style.left = Math.random() * 100 + 'vw';
+            bunga.style.top = '100vh'; 
+            
+            // Kecepatan dan durasi acak agar terlihat alami
+            bunga.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            
+            document.body.appendChild(bunga);
+
+            // Hapus elemen setelah selesai animasi agar laptop/HP tidak lemot
+            setTimeout(() => {
+                bunga.remove();
+            }, 6000);
+        }
+
+        // 5. Fungsi Kontrol Musik
+        const lagu = document.getElementById("romantic-music");
+        const tombolIkon = document.getElementById("music-icon");
+        const tombolTeks = document.getElementById("music-text");
+
+        function tataMusik() {
+            if (lagu.paused) {
+                lagu.play();
+                tombolIkon.innerText = "⏸️";
+                tombolTeks.innerText = "Matikan Musik";
+            } else {
+                lagu.pause();
+                tombolIkon.innerText = "🎵";
+                tombolTeks.innerText = "Putar Lagu Cinta";
+            }
+        }
+    </script>
+</body>
+</html>
